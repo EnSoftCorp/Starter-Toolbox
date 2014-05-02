@@ -31,4 +31,7 @@ import com.ensoftcorp.atlas.java.core.highlight._
 import java.awt.Color
 
 // toolbox analysis scripts
+import toolbox.analysis._
 import toolbox.analysis.scripts._
+import toolbox.library.util._
+import toolbox.library.util.ScriptUtilities._
