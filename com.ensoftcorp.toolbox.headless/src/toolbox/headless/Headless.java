@@ -3,6 +3,8 @@ package toolbox.headless;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
+import toolbox.analysis.Script;
+import toolbox.headless.scripts.EnabledScripts;
 import toolbox.library.util.IndexingUtils;
 
 public class Headless implements IApplication {
@@ -17,13 +19,18 @@ public class Headless implements IApplication {
 //		}
 		
 		// Index the workspace
+		System.out.println("Indexing workspace...");
 		try {
 			IndexingUtils.indexWorkspace();
-			System.out.println("Success!");
+			for(Script script : EnabledScripts.getEnabledScripts()){
+				System.out.println("Running " + script.getName() + " analysis script...");
+				
+			}
 		} catch (Throwable t) {
-			System.out.println("Failed.");
+			System.out.println("Indexing Failed.");
 			t.printStackTrace();
 		}
+		System.out.println("Analysis finished.");
 		
 		return EXIT_OK;
 	}
