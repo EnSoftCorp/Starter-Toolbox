@@ -1,0 +1,46 @@
+# Locally stored "Eclipse launch configurations"
+*.launch
+
+# Eclipse-specific
+*.pydevproject
+.metadata
+*.tmp
+*.bak
+*.swp
+*~.nib
+*.loadpath
+*.cache
+
+# CDT-specific
+.cproject
+
+# PDT-specific
+.buildpath
+
+#Entire directories to ignore
+bin/
+gen/
+tmp/
+
+#Local configuration file
+local.properties
+
+#Backup, swap, MacOS dir file, etc.
+*~
+*.lock
+*.DS_Store
+*.swp
+*.out
+*.cache
+Thumbs.db
+
+#ignore binaries
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+*.dex
+*.apk
+*.ap_

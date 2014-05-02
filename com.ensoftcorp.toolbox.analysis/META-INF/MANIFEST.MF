@@ -1,0 +1,18 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Toolbox Analysis
+Bundle-SymbolicName: com.ensoftcorp.toolbox.analysis
+Bundle-Version: 0.20.0.qualifier
+Bundle-Vendor: EnSoft Corp.
+Bundle-RequiredExecutionEnvironment: JavaSE-1.7
+Require-Bundle: 
+ org.eclipse.core.runtime;bundle-version="3.7.0";visibility:=reexport,
+ org.eclipse.core.resources;bundle-version="3.7.100";visibility:=reexport,
+ com.ensoftcorp.atlas.java.core;bundle-version="0.20.0";visibility:=reexport,
+ com.ensoftcorp.atlas.java.ui;bundle-version="0.20.0";visibility:=reexport,
+ com.ensoftcorp.abp;bundle-version="1.0.0";visibility:=reexport,
+ com.ensoftcorp.abp.common;bundle-version="1.0.0";visibility:=reexport,
+ com.ensoftcorp.atlas.jimple.core;bundle-version="1.0.0";visibility:=reexport
+Export-Package: toolbox.analysis,
+ toolbox.analysis.scripts,
+ toolbox.library.util
