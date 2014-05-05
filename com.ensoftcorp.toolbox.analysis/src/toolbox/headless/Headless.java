@@ -1,6 +1,8 @@
 package toolbox.headless;
 
 import java.io.File;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -11,7 +13,11 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IProjectDescription;
+import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.NullProgressMonitor;
+import org.eclipse.core.runtime.Path;
 import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 import org.w3c.dom.Document;
@@ -71,6 +77,37 @@ public class Headless implements IApplication {
 			Element argumentElement = doc.createElement(ARGUMENT);
 			argumentElement.setTextContent(arg);
 			argumentsElement.appendChild(argumentElement);
+		}
+		
+		// import projects
+		boolean build = false;
+		List<String> projects = new LinkedList<String>();
+		for (int i = 0; i < args.length; ++i) {
+			if ("-import".equals(args[i]) && i + 1 < args.length) {
+				projects.add(args[++i]);
+			} else if ("-build".equals(args[i])) {
+				build = true;
+			}
+		}
+
+		if (projects.size() == 0) {
+			System.out.println("No projects to import!");
+		} else {
+			for (String projectPath : projects) {
+				// import project to workspace
+				IProjectDescription description = ResourcesPlugin.getWorkspace().loadProjectDescription(
+						new Path(projectPath).append(".project"));
+				IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(description.getName());
+				project.create(description, null);
+				project.open(null);
+			}
+
+			// build all projects after importing
+			if (build) {
+				System.out.println("Re-building workspace");
+				ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.CLEAN_BUILD, new NullProgressMonitor());
+				ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.FULL_BUILD, new NullProgressMonitor());
+			}
 		}
 		
 		// record projects in workspace
