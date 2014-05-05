@@ -19,3 +19,7 @@ Export-Package: toolbox.analysis,
  toolbox.library.util
 Bundle-Activator: toolbox.headless.Activator
 Bundle-ActivationPolicy: lazy
+Import-Package: org.apache.commons.codec.binary,
+ org.apache.commons.io
+Bundle-ClassPath: lib/commons-io-2.4.jar,
+ .
