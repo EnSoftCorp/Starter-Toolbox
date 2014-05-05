@@ -1,4 +1,4 @@
-package toolbox.headless;
+package toolbox.headless.scripts.serializers;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -7,7 +7,6 @@ import org.w3c.dom.Element;
 
 import toolbox.analysis.Script;
 import toolbox.analysis.scripts.DiscoverMainMethods;
-import toolbox.headless.script.serializers.DiscoverMainMethodsSerializer;
 
 public class Serializer {
 
