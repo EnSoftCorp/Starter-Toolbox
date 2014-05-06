@@ -41,3 +41,6 @@ TODO
 
 ## Adding a Smart View
 TODO
+
+## Query Addons
+TODO
