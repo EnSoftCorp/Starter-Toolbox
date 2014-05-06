@@ -27,7 +27,12 @@ To open an interactive Smart View right click on the `com.ensoftcorp.toolbox.int
 
 The `com.ensoftcorp.toolbox.analysis` project is also an Eclipse plugin that can be installed and run in a headless mode.  To install the Eclipse plugin from the workspace right click on the project and navigate to `Export`->`Plug-in Development`->`Deployable plug-ins and fragments`.  Select `Next` and make sure only the `com.ensoftcorp.toolbox.analysis` project is selected.  Then select the `Install into host.` radio and click `Finish`.  You will need to restart Eclipse.
 
-    ./eclipse -application com.ensoftcorp.toolbox.analysis.Headless -consoleLog -nosplash -data <workspace path>/workspace/ -import <project path>/TestProject -output <output path>/output.xml
+    ./eclipse -application com.ensoftcorp.toolbox.analysis.Headless 
+              -nosplash 
+              -consoleLog  
+              -data <workspace path> workspace/ 
+              -import <project path>/TestProject 
+              -output <output path>/output.xml
 
 # Extending the Toolbox
 
