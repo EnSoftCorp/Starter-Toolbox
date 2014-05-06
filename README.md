@@ -30,7 +30,7 @@ The `com.ensoftcorp.toolbox.analysis` project is also an Eclipse plugin that can
     ./eclipse -application com.ensoftcorp.toolbox.analysis.Headless 
               -nosplash 
               -consoleLog  
-              -data <workspace path> workspace/ 
+              -data <workspace path>/workspace/ 
               -import <project path>/TestProject 
               -output <output path>/output.xml
 
