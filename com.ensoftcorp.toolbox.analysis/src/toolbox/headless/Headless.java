@@ -16,6 +16,7 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.IncrementalProjectBuilder;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.NullProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.equinox.app.IApplication;
@@ -27,6 +28,10 @@ import toolbox.analysis.Script;
 import toolbox.headless.scripts.EnabledScripts;
 import toolbox.headless.scripts.serializers.Serializer;
 import toolbox.library.util.IndexingUtils;
+
+import com.ensoftcorp.abp.common.util.ProjectUtil;
+import com.ensoftcorp.abp.core.conversion.ApkToJimple;
+import com.ensoftcorp.atlas.java.core.log.Log;
 
 public class Headless implements IApplication {
 
@@ -66,71 +71,90 @@ public class Headless implements IApplication {
 		dateElement.setAttribute(DATE, ("" + date));
 		detailsElement.appendChild(dateElement);
 		
-		// import projects
+		// parse plugin arguments
+		boolean closeImportedProjectsAfterAnalysis = false;
+		boolean removeImportedProjectsAfterAnalysis = false;
 		boolean build = false;
 		File outputFile = null;
 		String[] args = (String[]) context.getArguments().get(IApplicationContext.APPLICATION_ARGS);
-		List<String> projects = new LinkedList<String>();
+		List<File> projects = new LinkedList<File>();
 		for (int i = 0; i < args.length; ++i) {
 			if("-import".equals(args[i]) && i + 1 < args.length) {
-				projects.add(args[++i]);
+				projects.add(new File(args[++i]));
 			} else if("-build".equals(args[i])) {
 				build = true;
 			} else if("-output".equals(args[i])){
 				outputFile = new File(args[++i]);
+			} else if("-close-imported-projects-after-analysis".equals(args[i])){
+				closeImportedProjectsAfterAnalysis = true;
+			} else if("-remove-imported-projects-after-analysis".equals(args[i])){
+				removeImportedProjectsAfterAnalysis = true;
 			}
 		}
 
+		// import projects
+		List<IProject> eclipseProjects = new LinkedList<IProject>();
 		if (projects.size() != 0) {
-			for (String projectPath : projects) {
-				// import project to workspace
-				IProjectDescription description = ResourcesPlugin.getWorkspace().loadProjectDescription(
-						new Path(projectPath).append(".project"));
-				IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(description.getName());
-				System.out.println("Importing " + project.getName() + "...");
-				project.create(description, null);
-				project.open(null);
+			for (File project : projects) {
+				if(project.getAbsolutePath().endsWith(".apk")){
+					// decompile and import APK
+					String projectName = project.getName();
+					projectName = projectName.substring(0, projectName.length() - ".apk".length());
+					IProject eclipseProject = importAPK(project, projectName);
+					if(eclipseProject != null){
+						eclipseProjects.add(eclipseProject);
+					}
+				} else {
+					// import eclipse project to workspace
+					IProject eclipseProject = importEclipseProject(project);
+					if(eclipseProject != null){
+						eclipseProjects.add(eclipseProject);
+					}
+				}
 			}
 
 			// build all projects after importing
 			if (build) {
-				System.out.println("Re-building workspace");
+				Log.info("Re-building workspace");
 				ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.CLEAN_BUILD, new NullProgressMonitor());
 				ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.FULL_BUILD, new NullProgressMonitor());
 			}
 		}
 		
-		// record projects in workspace
+		// record open projects in workspace
+		// TODO: Check if flagged for indexing as well
 		Element workspaceElement = doc.createElement(WORKSPACE);
 		rootElement.appendChild(workspaceElement);
 		for(IProject project : ResourcesPlugin.getWorkspace().getRoot().getProjects()){
-			Element projectElement = doc.createElement(PROJECT);
-			projectElement.setAttribute(NAME, project.getName());
-			workspaceElement.appendChild(projectElement);
+			if(project.isOpen()){
+				Element projectElement = doc.createElement(PROJECT);
+				projectElement.setAttribute(NAME, project.getName());
+				workspaceElement.appendChild(projectElement);
+			}
 		}
 
 		try {
 			// index the workspace
-			System.out.println("Indexing workspace...");
+			Log.info("Indexing workspace...");
 			IndexingUtils.indexWorkspace();
-			
-			// create scripts element
-			Element scriptsElement = doc.createElement(SCRIPTS);
-			rootElement.appendChild(scriptsElement);
-			
-			// run analysis scripts
-			for(Script script : EnabledScripts.getEnabledScripts()){
-				System.out.println("Running " + script.getName() + " analysis script...");
-				Serializer serializer = Serializer.getScriptSerializer(script.getClass());
-				Element scriptElement = doc.createElement(SCRIPT);
-				scriptsElement.appendChild(scriptElement);
-				serializer.serialize(doc, scriptElement, script);
-			}
 		} catch (Throwable t) {
-			System.out.println("Indexing Failed.");
+			Log.error("Indexing Failed.", t);
 			Element indexTimeElement = doc.createElement(DETAIL);
 			indexTimeElement.setAttribute(ERROR, Serializer.getBase64EncodeStackTrace(t));
 			detailsElement.appendChild(indexTimeElement);
+		}
+		
+		// create scripts element
+		Element scriptsElement = doc.createElement(SCRIPTS);
+		rootElement.appendChild(scriptsElement);
+		
+		// run analysis scripts
+		for(Script script : EnabledScripts.getEnabledScripts()){
+			Log.info("Running " + script.getName() + " analysis script...");
+			Serializer serializer = Serializer.getScriptSerializer(script.getClass());
+			Element scriptElement = doc.createElement(SCRIPT);
+			scriptsElement.appendChild(scriptElement);
+			serializer.serialize(doc, scriptElement, script);
 		}
 		
 		// write the content into xml file (with pretty print)
@@ -144,8 +168,58 @@ public class Headless implements IApplication {
 		StreamResult result = new StreamResult(outputFile);
 		transformer.transform(source, result);
 		
-		System.out.println("Analysis finished.");
+		Log.info("Finished analysis.");
+		
+		// clean up the workspace
+		if(closeImportedProjectsAfterAnalysis || removeImportedProjectsAfterAnalysis){
+			Log.info("Closing imported projects...");
+			for (IProject eclipseProject : eclipseProjects) {
+				eclipseProject.close(null);
+				if(removeImportedProjectsAfterAnalysis){
+					Log.info("Removing imported projects...");
+					boolean deleteContent = true;
+					eclipseProject.delete(deleteContent, true, null);
+				}
+			}
+		}
+
+		Log.info("Exiting.");
 		return EXIT_OK;
+	}
+
+	private IProject importEclipseProject(File eclipseProjectPath) {
+		IProject eclipseProject = null;
+		IPath path = new Path(eclipseProjectPath.getAbsolutePath()).append(".project");
+		if(path.toFile().exists()){
+			try {
+				IProjectDescription description = ResourcesPlugin.getWorkspace().loadProjectDescription(path);
+				eclipseProject = ResourcesPlugin.getWorkspace().getRoot().getProject(description.getName());
+				Log.info("Importing " + eclipseProject.getName() + "...");
+				eclipseProject.create(description, null);
+				eclipseProject.open(null);
+			} catch (Exception e){
+				Log.error("Failed to import: " + eclipseProjectPath.getName(), e);
+			}
+		}
+		return eclipseProject;
+	}
+	
+	private IProject importAPK(File apk, String projectName) {
+		IProject eclipseProject = null;
+		if(apk.exists()){
+			try {
+				Log.info("Importing " + apk.getName() + "...");
+				// decompile APK directly into workspace
+				String outputDir = ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString();
+				ApkToJimple.createAndroidBinaryProject(projectName, new Path(outputDir), apk.getAbsolutePath(), new NullProgressMonitor());
+				eclipseProject = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+			} catch (Exception e) {
+				IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+				ProjectUtil.deleteProject(project);
+				Log.error("Failed to import: " + apk, e);
+			}
+		}
+		return eclipseProject;
 	}
 
 	@Override
