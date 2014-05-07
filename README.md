@@ -33,12 +33,16 @@ The `com.ensoftcorp.toolbox.analysis` project is also an Eclipse plugin that can
 
 To run the analysis toolbox project in a headless mode invoke Eclipse from the command line with arguments similiar to the following:
 
+
+./eclipse -application com.ensoftcorp.toolbox.analysis.Headless -consoleLog -nosplash -data /Users/benjholla/Desktop/APAC/BinaryAtlas/workspace/ -import /Users/benjholla/Desktop/flashplayer.android.update.apk -output /Users/benjholla/Desktop/stels5.xml -remove-imported-projects-after-analysis -vmargs -Dsdtcore.headless=true
+
     ./eclipse -application com.ensoftcorp.toolbox.analysis.Headless 
               -nosplash 
               -consoleLog  
               -data <workspace path>/headless-workspace/ 
-              -import <project path>/TestProject 
+              -import <project path>/{MyProject | MyApp.apk}
               -output <output path>/output.xml
+              -remove-imported-projects-after-analysis
               -vmargs -Dsdtcore.headless=true
               
 TODO: Explain arguments
