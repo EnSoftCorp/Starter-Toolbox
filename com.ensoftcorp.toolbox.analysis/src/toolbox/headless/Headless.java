@@ -136,7 +136,7 @@ public class Headless implements IApplication {
 		// write the content into xml file (with pretty print)
 		if(outputFile == null){
 			// just being lazy and using the current system time as a filename
-			outputFile = new File("/Users/benjholla/Desktop/" + date + ".xml");
+			outputFile = new File(date + ".xml");
 		}
 		Transformer transformer = TransformerFactory.newInstance().newTransformer();
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
