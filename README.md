@@ -7,7 +7,7 @@ The Starter-Toolbox is a simple starter framework for creating an analysis toolb
 
 1) Install Atlas.  See [http://www.ensoftcorp.com/atlas](http://www.ensoftcorp.com/atlas/).
 
-2) Install dependencies.  The Starter-Toolbox has a dependency on the `org.apache.commons.io` library.  Install the Apache commons library as a plugin from by navigating to `Help`->`Install New Software...` and entering [http://download.eclipse.org/tools/orbit/downloads/drops/R20130827064939/repository/](http://download.eclipse.org/tools/orbit/downloads/drops/R20130827064939/repository/) in the `Work with:` field.  Expand the `All Orbit Bundles` category and select `Apache Commons IO` and then press `Next` and `Finish`.  You will need to restart Eclipse.
+2) Install dependencies.  The Starter-Toolbox has a dependency on the `org.apache.commons.io` library.  Install the Apache commons library as a plugin from the [http://www.eclipse.org/orbit/](http://www.eclipse.org/orbit/) repos by navigating to `Help`->`Install New Software...` and entering "[http://download.eclipse.org/tools/orbit/downloads/drops/R20130827064939/repository/](http://download.eclipse.org/tools/orbit/downloads/drops/R20130827064939/repository/)" in the `Work with:` field.  Expand the `All Orbit Bundles` category and select `Apache Commons IO` and then press `Next` and `Finish`.  You will need to restart Eclipse.
 
 Note: If your toolbox project has other dependencies you may need to install more plugins at this time.
 
