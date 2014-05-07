@@ -10,7 +10,7 @@ import com.ensoftcorp.atlas.java.core.db.graph.GraphElement;
 
 public class DiscoverMainMethodsSerializer extends Serializer {
 
-	public static final String LOCATION = "LOCATION";
+	public static final String LOCATION = "location";
 	
 	@Override
 	public void serialize(Document doc, Element scriptElement, Script script){

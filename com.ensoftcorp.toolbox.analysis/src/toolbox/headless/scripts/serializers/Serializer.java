@@ -42,6 +42,12 @@ public class Serializer {
 	
 	protected Q envelope;
 	
+	/**
+	 * Default serializer
+	 * @param doc
+	 * @param scriptElement
+	 * @param script
+	 */
 	public void serialize(Document doc, Element scriptElement, Script script){
 		try {
 			// record analysis time

@@ -37,8 +37,6 @@ public class Headless implements IApplication {
 	public static final String WORKSPACE = "workspace";
 	public static final String SCRIPTS = "scripts";
 	public static final String SCRIPT = "script";
-	public static final String ARGUMENTS = "arguments";
-	public static final String ARGUMENT = "argument";
 	
 	// constants for XML attributes
 	public static final String NAME = "name";
@@ -49,7 +47,6 @@ public class Headless implements IApplication {
 	
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
-
 		// build an XML document to serialize results to...
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
@@ -69,35 +66,28 @@ public class Headless implements IApplication {
 		dateElement.setAttribute(DATE, ("" + date));
 		detailsElement.appendChild(dateElement);
 		
-		// record the analysis arguments
-		Element argumentsElement = doc.createElement(ARGUMENTS);
-		rootElement.appendChild(argumentsElement);
-		String[] args = (String[]) context.getArguments().get(IApplicationContext.APPLICATION_ARGS);
-		for(String arg : args){
-			Element argumentElement = doc.createElement(ARGUMENT);
-			argumentElement.setTextContent(arg);
-			argumentsElement.appendChild(argumentElement);
-		}
-		
 		// import projects
 		boolean build = false;
+		File outputFile = null;
+		String[] args = (String[]) context.getArguments().get(IApplicationContext.APPLICATION_ARGS);
 		List<String> projects = new LinkedList<String>();
 		for (int i = 0; i < args.length; ++i) {
-			if ("-import".equals(args[i]) && i + 1 < args.length) {
+			if("-import".equals(args[i]) && i + 1 < args.length) {
 				projects.add(args[++i]);
-			} else if ("-build".equals(args[i])) {
+			} else if("-build".equals(args[i])) {
 				build = true;
+			} else if("-output".equals(args[i])){
+				outputFile = new File(args[++i]);
 			}
 		}
 
-		if (projects.size() == 0) {
-			System.out.println("No projects to import!");
-		} else {
+		if (projects.size() != 0) {
 			for (String projectPath : projects) {
 				// import project to workspace
 				IProjectDescription description = ResourcesPlugin.getWorkspace().loadProjectDescription(
 						new Path(projectPath).append(".project"));
 				IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(description.getName());
+				System.out.println("Importing " + project.getName() + "...");
 				project.create(description, null);
 				project.open(null);
 			}
@@ -144,8 +134,10 @@ public class Headless implements IApplication {
 		}
 		
 		// write the content into xml file (with pretty print)
-		// just being lazy and using the current system time as a filename
-		File outputFile = new File("/Users/benjholla/Desktop/" + date + ".xml");
+		if(outputFile == null){
+			// just being lazy and using the current system time as a filename
+			outputFile = new File("/Users/benjholla/Desktop/" + date + ".xml");
+		}
 		Transformer transformer = TransformerFactory.newInstance().newTransformer();
 		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 		DOMSource source = new DOMSource(doc);
