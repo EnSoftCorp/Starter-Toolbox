@@ -42,9 +42,27 @@ To run the analysis toolbox project in a headless mode invoke Eclipse from the c
               -remove-imported-projects-after-analysis
               -vmargs -Dsdtcore.headless=true
               
-TODO: Explain arguments
+### Eclipse Arguments Explained
+
+| **Argument**                                              |                                                **Explaination**                                               |
+|-----------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------:|
+| -application edu.iastate.binary.toolbox.analysis.Headless | The identifier of the Eclipse application to run. This specifies the headless toolbox entry point.            |
+| -nosplash                                                 | Disables the Eclipse splash screen                                                                            |
+| -consoleLog                                               | Redirects any log output sent to Java's System.out (typically back to the command shell if any)               |
+| -data <workspace path>                                    | Set the Eclipse workspace to use                                                                              |
+| -vmargs -Dsdtcore.headless=true                           | Sets a VM argument to run the Scala plugin in a headless mode.  Without this argument the toolbox will crash. |
+
+### Headless Toolbox Arguments Explained
+
+| **Argument**                                    |                            **Explaination**                            |
+|-------------------------------------------------|:----------------------------------------------------------------------:|
+| -import <project path>/{MyProject or MyApp.apk} | Imports a Eclipse project or Android binary into the workspace         |
+| -output <output file path>                      | Sets the output file path                                              |
+| -close-imported-projects-after-analysis         | Closes the imported project after the analysis is complete             |
+| -remove-imported-projects-after-analysis        | Closes and removes the imported project after the analysis is complete |
 
 For additional Eclipse runtime arguments see [help.eclipse.org](http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Freference%2Fmisc%2Fruntime-options.html).
+
 # Extending the Toolbox
 
 ## Adding an analysis script
