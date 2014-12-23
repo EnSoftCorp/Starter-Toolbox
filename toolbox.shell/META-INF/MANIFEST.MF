@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Toolbox Interpreter
+Bundle-Name: Basic Shell
 Bundle-SymbolicName: toolbox.shell
-Bundle-Version: 0.20.0.qualifier
+Bundle-Version: 2.0.4.qualifier
 Bundle-Vendor: EnSoft Corp.
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: 
