@@ -66,10 +66,20 @@ For additional Eclipse runtime arguments see [help.eclipse.org](http://help.ecli
 # Extending the Toolbox
 
 ## Adding an analysis script
-TODO
+To add an analysis script extend `toolbox.analysis.Script` and implement the `evaluateEnvelope` method.  Alternatively create your own Java classes for analysis and invoke them directly from the Headless entry point or on the Atlas Shell.
 
 ## Adding a Smart View
-TODO
+To add a custom Atlas Smart View implement the `AtlasSmartViewScript` interface and enable the Class in the `selectionScripts.atlas` file.  The custom Smart View can be accessed by right clicking on the `toolbox.shell` project, and selecting `Atlas`->`Open Atlas Smart View`.  Drag the Smart View window to your preferred location in the Eclipse IDE.  In the Smart View window click on the down arror and navigate to `Script` and then select the Smart View you'd like to display.
+
+An example custom Smart View can be seen in `toolbox.shell.smartviews.SuperTypeHierarchy`.
 
 ## Query Addons
-TODO
+QueryAddons is a collection of Scala methods that are dynamically added to the Q query object.  By adding methods here you can add custom query chaining methods.  
+
+Some examples are present in `toolbox.shell.addons.QueryAddons.scala`.
+
+## Adding Toolbox Dependencies
+Depending on your analysis needs, other specialized toolboxes exist that may satisfy or quick start your analysis task.  Some toolboxes compatible with this starter toolbox are listed below.
+
+- [Android Essentials Toolbox](https://android-essentials-toolbox.github.io/) - Utilities for analyzing Android permissions and the Android Manifest
+- [AuditMon](http://auditmon.com/) - Utilities for recording analyst code audits
