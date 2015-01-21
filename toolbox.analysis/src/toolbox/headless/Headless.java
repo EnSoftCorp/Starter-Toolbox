@@ -24,12 +24,12 @@ import org.eclipse.equinox.app.IApplicationContext;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import com.ensoftcorp.atlas.core.log.Log;
+import toolbox.headless.analyzers.EnabledAnalyzers;
+import toolbox.headless.analyzers.serializers.Serializer;
 
-import toolbox.analysis.Script;
-import toolbox.headless.scripts.EnabledScripts;
-import toolbox.headless.scripts.serializers.Serializer;
-import toolbox.library.util.IndexingUtils;
+import com.ensoftcorp.atlas.core.log.Log;
+import com.ensoftcorp.open.toolbox.commons.analysis.Analyzer;
+import com.ensoftcorp.open.toolbox.commons.utils.IndexingUtils;
 
 public class Headless implements IApplication {
 
@@ -137,9 +137,9 @@ public class Headless implements IApplication {
 		rootElement.appendChild(scriptsElement);
 		
 		// run analysis scripts
-		for(Script script : EnabledScripts.getEnabledScripts()){
+		for(Analyzer script : EnabledAnalyzers.getEnabledAnalyzers()){
 			Log.info("Running " + script.getName() + " analysis script...");
-			Serializer serializer = Serializer.getScriptSerializer(script.getClass());
+			Serializer serializer = Serializer.getAnalyzerSerializer(script.getClass());
 			Element scriptElement = doc.createElement(SCRIPT);
 			scriptsElement.appendChild(scriptElement);
 			serializer.serialize(doc, scriptElement, script);

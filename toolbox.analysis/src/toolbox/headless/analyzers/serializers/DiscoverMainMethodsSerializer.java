@@ -1,27 +1,26 @@
-package toolbox.headless.scripts.serializers;
+package toolbox.headless.analyzers.serializers;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.ensoftcorp.atlas.core.db.graph.GraphElement;
-
-import toolbox.analysis.Script;
-import toolbox.library.util.SourceCorrespondence;
+import com.ensoftcorp.open.toolbox.commons.FormattedSourceCorrespondence;
+import com.ensoftcorp.open.toolbox.commons.analysis.Analyzer;
 
 public class DiscoverMainMethodsSerializer extends Serializer {
 
 	public static final String LOCATION = "location";
 	
 	@Override
-	public void serialize(Document doc, Element scriptElement, Script script){
-		super.serialize(doc, scriptElement, script);
+	public void serialize(Document doc, Element analyzerElement, Analyzer analyzer){
+		super.serialize(doc, analyzerElement, analyzer);
 		
 		// for each main method list the source file and line numbers
 		for(GraphElement mainMethod : envelope.eval().nodes()){
 			Element locationElement = doc.createElement(LOCATION);
-			SourceCorrespondence sc = SourceCorrespondence.getSourceCorrespondent(mainMethod);
+			FormattedSourceCorrespondence sc = FormattedSourceCorrespondence.getSourceCorrespondent(mainMethod);
 			locationElement.setTextContent(sc.toString());
-			scriptElement.appendChild(locationElement);
+			analyzerElement.appendChild(locationElement);
 		}
 	}
 	

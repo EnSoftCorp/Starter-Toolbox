@@ -1,4 +1,4 @@
-package toolbox.headless.scripts.serializers;
+package toolbox.headless.analyzers.serializers;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -9,16 +9,16 @@ import org.apache.commons.codec.binary.Base64;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import toolbox.analysis.Script;
-import toolbox.analysis.scripts.DiscoverMainMethods;
+import toolbox.analysis.analyzers.DiscoverMainMethods;
 import toolbox.headless.Headless;
 
 import com.ensoftcorp.atlas.core.query.Q;
 import com.ensoftcorp.atlas.java.core.script.CommonQueries;
+import com.ensoftcorp.open.toolbox.commons.analysis.Analyzer;
 
 public class Serializer {
 
-	private static Map<Class<? extends Script>, Serializer> scriptSerializers = new HashMap<Class<? extends Script>, Serializer>() {
+	private static Map<Class<? extends Analyzer>, Serializer> scriptSerializers = new HashMap<Class<? extends Analyzer>, Serializer>() {
 		private static final long serialVersionUID = 1L;
 		{
 			put(DiscoverMainMethods.class, new DiscoverMainMethodsSerializer());
@@ -33,7 +33,7 @@ public class Serializer {
 		return new String(encoded);
 	}
 	
-	public static Serializer getScriptSerializer(Class<? extends Script> script){
+	public static Serializer getAnalyzerSerializer(Class<? extends Analyzer> script){
 		return scriptSerializers.get(script);
 	}
 	
@@ -45,25 +45,25 @@ public class Serializer {
 	/**
 	 * Default serializer
 	 * @param doc
-	 * @param scriptElement
-	 * @param script
+	 * @param analyzerElement
+	 * @param analyzer
 	 */
-	public void serialize(Document doc, Element scriptElement, Script script){
+	public void serialize(Document doc, Element analyzerElement, Analyzer analyzer){
 		try {
 			// record analysis time
 			long startAnalysis = System.currentTimeMillis();
-			this.envelope = script.getEnvelope();
+			this.envelope = analyzer.getEnvelope();
 			long finishAnalysis = System.currentTimeMillis();
-			scriptElement.setAttribute(Headless.TIME, "" + (finishAnalysis - startAnalysis));
+			analyzerElement.setAttribute(Headless.TIME, "" + (finishAnalysis - startAnalysis));
 			
 			// record analysis result graph size
 			long numNodes = CommonQueries.nodeSize(envelope);
-			scriptElement.setAttribute(NODES, ("" + numNodes));
+			analyzerElement.setAttribute(NODES, ("" + numNodes));
 			long numEdges = CommonQueries.edgeSize(envelope);
-			scriptElement.setAttribute(EDGES, ("" + numEdges));
+			analyzerElement.setAttribute(EDGES, ("" + numEdges));
 		} catch (Throwable t){
 			try {
-				scriptElement.setAttribute(Headless.ERROR, Serializer.getBase64EncodeStackTrace(t));
+				analyzerElement.setAttribute(Headless.ERROR, Serializer.getBase64EncodeStackTrace(t));
 			} catch (Exception e) {e.printStackTrace();}
 		}
 	}

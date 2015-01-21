@@ -2,24 +2,22 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Starter Toolbox
 Bundle-SymbolicName: toolbox.analysis;singleton:=true
-Bundle-Version: 2.0.4.qualifier
+Bundle-Version: 2.0.5.qualifier
 Bundle-Vendor: EnSoft Corp.
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: 
- org.eclipse.ui;bundle-version="3.105.0";visibility:=reexport,
- org.eclipse.core.runtime;bundle-version="3.9.100";visibility:=reexport,
- org.eclipse.core.resources;bundle-version="3.8.101";visibility:=reexport,
- com.ensoftcorp.atlas.core;bundle-version="2.0.4";visibility:=reexport,
- com.ensoftcorp.atlas.ui;bundle-version="2.0.4";visibility:=reexport,
- com.ensoftcorp.atlas.java.core;bundle-version="2.0.4";visibility:=reexport,
- com.ensoftcorp.atlas.java.ui;bundle-version="2.0.4";visibility:=reexport,
- com.ensoftcorp.atlas.c.core;bundle-version="2.0.4";visibility:=reexport,
- com.ensoftcorp.atlas.c.ui;bundle-version="2.0.4";visibility:=reexport,
- org.apache.commons.io;bundle-version="2.2.0",
+ org.eclipse.ui;visibility:=reexport,
+ org.eclipse.core.runtime;visibility:=reexport,
+ org.eclipse.core.resources;visibility:=reexport,
+ com.ensoftcorp.atlas.core;bundle-version="2.0.5";visibility:=reexport,
+ com.ensoftcorp.atlas.ui;bundle-version="2.0.5";visibility:=reexport,
+ com.ensoftcorp.atlas.java.core;bundle-version="2.0.5";visibility:=reexport,
+ com.ensoftcorp.atlas.java.ui;bundle-version="2.0.5";visibility:=reexport,
+ com.ensoftcorp.atlas.c.core;bundle-version="2.0.5";visibility:=reexport,
+ com.ensoftcorp.atlas.c.ui;bundle-version="2.0.5";visibility:=reexport,
+ com.ensoftcorp.open.toolbox.commons;bundle-version="2.0.5";visibility:=reexport,
  org.apache.commons.codec;bundle-version="1.4.0"
-Export-Package: toolbox.analysis,
- toolbox.analysis.scripts,
- toolbox.library.util
+Export-Package: toolbox.analysis.analyzers
 Bundle-Activator: toolbox.headless.Activator
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .

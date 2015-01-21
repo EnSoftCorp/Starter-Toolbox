@@ -1,19 +1,18 @@
-package toolbox.analysis.scripts;
-
-import toolbox.analysis.Script;
+package toolbox.analysis.analyzers;
 
 import com.ensoftcorp.atlas.core.query.Attr.Edge;
 import com.ensoftcorp.atlas.core.query.Attr.Node;
 import com.ensoftcorp.atlas.core.query.Q;
 import com.ensoftcorp.atlas.java.core.script.Common;
 import com.ensoftcorp.atlas.java.core.script.CommonQueries;
+import com.ensoftcorp.open.toolbox.commons.analysis.Analyzer;
 
 /**
  * Discovers Java main methods.
  * Tested on examples from http://rationalpi.wordpress.com/2007/01/29/main-methods-in-java/
  * @author Ben Holland
  */
-public class DiscoverMainMethods extends Script {
+public class DiscoverMainMethods extends Analyzer {
 
 	@Override 
 	public String getName(){
