@@ -85,5 +85,5 @@ Some examples are present in `toolbox.shell.addons.QueryAddons.scala`.
 ## Adding Toolbox Dependencies
 Depending on your analysis needs, other specialized toolboxes exist that may satisfy or quick start your analysis task.  Some toolboxes compatible with this starter toolbox are listed below.
 
-- [Android Essentials Toolbox](https://android-essentials-toolbox.github.io/) - Utilities for analyzing Android permissions and the Android Manifest
-- [AuditMon](http://auditmon.com/) - Utilities for recording analyst code audits
+- [Android Essentials Toolbox](https://github.com/EnSoftCorp/android-essentials-toolbox) - Utilities for analyzing Android permissions and the Android Manifest
+- [AuditMon](https://github.com/EnSoftCorp/AuditMon) - Utilities for recording analyst code audits
