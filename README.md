@@ -5,13 +5,17 @@ The Starter-Toolbox is a simple starter framework for creating an analysis toolb
 
 # Setup
 
-1) Install Atlas.  See [http://www.ensoftcorp.com/atlas](http://www.ensoftcorp.com/atlas/).
+### 1) Install Atlas.  See [http://www.ensoftcorp.com/atlas](http://www.ensoftcorp.com/atlas/).
 
-2) Install dependencies.  The Starter-Toolbox has a dependency on the `org.apache.commons.io` library.  Install the Apache commons library as a plugin from the [http://www.eclipse.org/orbit/](http://www.eclipse.org/orbit/) repos by navigating to `Help`->`Install New Software...` and entering "[http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository/](http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository/)" in the `Work with:` field.  Expand the `All Orbit Bundles` category and select `Apache Commons IO` and `Apache Commons Codec` and then press `Next` and `Finish`.  You will need to restart Eclipse.
+### 2) Install dependencies.  
+
+The Starter-Toolbox has a dependency on the [Toolbox-Commons](https://github.com/EnSoftCorp/toolbox-commons) library.  It can be installed by following instructions at [https://ensoftcorp.github.io/toolbox-commons/install.html](https://ensoftcorp.github.io/toolbox-commons/install.html).
+
+The Starter-Toolbox also has a dependency on the `org.apache.commons.codec` library.  Install the Apache commons library as a plugin from the [http://www.eclipse.org/orbit/](http://www.eclipse.org/orbit/) repos by navigating to `Help`->`Install New Software...` and entering "[http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository/](http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository/)" in the `Work with:` field.  Expand the `All Orbit Bundles` category and select `Apache Commons Codec` (version 1.4.0) and then press `Next` and `Finish`.  You will need to restart Eclipse.
 
 Note: If your toolbox project has other dependencies you may need to install additional plugins at this time.
 
-3) Fork and Clone the Toobox-Starter repository.
+### 3) Fork or clone the Toobox-Starter repository.
 
 `git clone https://github.com/EnSoftCorp/Starter-Toolbox.git`
 
@@ -45,7 +49,7 @@ To run the analysis toolbox project in a headless mode invoke Eclipse from the c
 ### Eclipse Arguments Explained
 
 | **Argument**                                              |                                                **Explanation**                                                |
-|-----------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------:|
+|:---------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------:|
 | -application toolbox.analysis.Headless                    | The identifier of the Eclipse application to run. This specifies the headless toolbox entry point.            |
 | -nosplash                                                 | Disables the Eclipse splash screen                                                                            |
 | -consoleLog                                               | Redirects any log output sent to Java's System.out (typically back to the command shell if any)               |
@@ -55,7 +59,7 @@ To run the analysis toolbox project in a headless mode invoke Eclipse from the c
 ### Headless Toolbox Arguments Explained
 
 | **Argument**                                    |                            **Explanation**                             |
-|-------------------------------------------------|:----------------------------------------------------------------------:|
+|:-----------------------------------------------:|:----------------------------------------------------------------------:|
 | -import &lt;project path&gt;/{MyProject}        | Imports a Eclipse project into the workspace                           |
 | -output &lt;output file path&gt;                | Sets the output file path                                              |
 | -close-imported-projects-after-analysis         | Closes the imported project after the analysis is complete             |

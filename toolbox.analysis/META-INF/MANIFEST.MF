@@ -16,7 +16,7 @@ Require-Bundle:
  com.ensoftcorp.atlas.c.core;bundle-version="2.0.5";visibility:=reexport,
  com.ensoftcorp.atlas.c.ui;bundle-version="2.0.5";visibility:=reexport,
  com.ensoftcorp.open.toolbox.commons;bundle-version="2.0.5";visibility:=reexport,
- org.apache.commons.codec;bundle-version="1.4.0"
+ org.apache.commons.codec;bundle-version="1.4.0";visibility:=reexport
 Export-Package: toolbox.analysis.analyzers
 Bundle-Activator: toolbox.headless.Activator
 Bundle-ActivationPolicy: lazy
