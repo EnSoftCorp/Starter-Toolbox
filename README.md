@@ -49,7 +49,7 @@ To run the analysis toolbox project in a headless mode invoke Eclipse from the c
 ### Eclipse Arguments Explained
 
 | **Argument**                                              |                                                **Explanation**                                                |
-|:---------------------------------------------------------:|:-------------------------------------------------------------------------------------------------------------:|
+|-----------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
 | -application toolbox.analysis.Headless                    | The identifier of the Eclipse application to run. This specifies the headless toolbox entry point.            |
 | -nosplash                                                 | Disables the Eclipse splash screen                                                                            |
 | -consoleLog                                               | Redirects any log output sent to Java's System.out (typically back to the command shell if any)               |
@@ -59,7 +59,7 @@ To run the analysis toolbox project in a headless mode invoke Eclipse from the c
 ### Headless Toolbox Arguments Explained
 
 | **Argument**                                    |                            **Explanation**                             |
-|:-----------------------------------------------:|:----------------------------------------------------------------------:|
+|-------------------------------------------------|------------------------------------------------------------------------|
 | -import &lt;project path&gt;/{MyProject}        | Imports a Eclipse project into the workspace                           |
 | -output &lt;output file path&gt;                | Sets the output file path                                              |
 | -close-imported-projects-after-analysis         | Closes the imported project after the analysis is complete             |
