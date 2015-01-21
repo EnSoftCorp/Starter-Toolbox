@@ -23,7 +23,7 @@ Note: If your toolbox project has other dependencies you may need to install add
 
 To use the analysis toolbox interactively make sure you have both the `toolbox.analysis` and `toolbox.shell` projects imported into the Eclipse workspace.  Then navigate to `Window`->`Show View`->`Other`->`Atlas`->`Atlas Shell`.  Select the `toolbox.shell` project from the shells list and press `OK`.
 
-From the Atlas Shell you can run any Java analyzers in the `toolbox.analysis` project.  To automatically import packages or classes on the Shell edit the `shellInit.scala` file.
+From the Atlas Shell you can run any program analyzers in the `toolbox.analysis` project.  To automatically import packages or classes on the Shell edit the `shellInit.scala` file.
 
 To open an interactive Smart View right click on the `toolbox.shell` project and navigate to `Atlas`->`Open Atlas Smart View`.  Drag the Smart View window to your preferred location in the Eclipse IDE.  In the Smart View window click on the down arrow and navigate to `Script` and then select the Smart View you'd like to display.
 
@@ -65,8 +65,8 @@ For additional Eclipse runtime arguments see [help.eclipse.org](http://help.ecli
 
 # Extending the Toolbox
 
-## Adding an analyzer
-To add an analyzer extend `com.ensoftcorp.open.toolbox.commons.analysis.Analyzer` and implement the `evaluateEnvelope` method.  Alternatively create your own Java classes for analysis and invoke them directly from the Headless entry point or on the Atlas Shell.
+## Adding an Analyzer
+To add a program analyzer extend `com.ensoftcorp.open.toolbox.commons.analysis.Analyzer` and implement the `evaluateEnvelope` method.  Alternatively create your own Java classes for analysis and invoke them directly from the Headless entry point or on the Atlas Shell.
 
 ## Adding a Smart View
 To add a custom Atlas Smart View implement the `AtlasSmartViewScript` interface and enable the Class in the `selectionScripts.atlas` file.  The custom Smart View can be accessed by right clicking on the `toolbox.shell` project, and selecting `Atlas`->`Open Atlas Smart View`.  Drag the Smart View window to your preferred location in the Eclipse IDE.  In the Smart View window click on the down arrow and navigate to `Script` and then select the Smart View you'd like to display.
