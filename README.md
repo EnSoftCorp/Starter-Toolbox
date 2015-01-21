@@ -21,11 +21,11 @@ Note: If your toolbox project has other dependencies you may need to install add
 
 ## Shell Project
 
-To use the analysis toolbox interactively make sure you have both the `toolbox.analysis` and `toolbox.shell` projects imported into the Eclipse workspace.  Then navigate to `Window`->`Show View`->`Other`->`Atlas`->`Atlas Shell`.  Select the `toolbox.shell` project from the interpreters list and press `OK`.
+To use the analysis toolbox interactively make sure you have both the `toolbox.analysis` and `toolbox.shell` projects imported into the Eclipse workspace.  Then navigate to `Window`->`Show View`->`Other`->`Atlas`->`Atlas Shell`.  Select the `toolbox.shell` project from the shells list and press `OK`.
 
-From the Interpeter you can run any Java scripts in the `toolbox.analysis` project.  To automatically import packages or classes on the Shell edit the `shellInit.scala` file.
+From the Atlas Shell you can run any Java analyzers in the `toolbox.analysis` project.  To automatically import packages or classes on the Shell edit the `shellInit.scala` file.
 
-To open an interactive Smart View right click on the `toolbox.shell` project and navigate to `Atlas`->`Open Atlas Smart View`.  Drag the Smart View window to your preferred location in the Eclipse IDE.  In the Smart View window click on the down arror and navigate to `Script` and then select the Smart View you'd like to display.
+To open an interactive Smart View right click on the `toolbox.shell` project and navigate to `Atlas`->`Open Atlas Smart View`.  Drag the Smart View window to your preferred location in the Eclipse IDE.  In the Smart View window click on the down arrow and navigate to `Script` and then select the Smart View you'd like to display.
 
 ## Headless Mode
 
@@ -44,20 +44,20 @@ To run the analysis toolbox project in a headless mode invoke Eclipse from the c
               
 ### Eclipse Arguments Explained
 
-| **Argument**                                              |                                                **Explaination**                                               |
+| **Argument**                                              |                                                **Explanation**                                                |
 |-----------------------------------------------------------|:-------------------------------------------------------------------------------------------------------------:|
-| -application toolbox.analysis.Headless | The identifier of the Eclipse application to run. This specifies the headless toolbox entry point.            |
+| -application toolbox.analysis.Headless                    | The identifier of the Eclipse application to run. This specifies the headless toolbox entry point.            |
 | -nosplash                                                 | Disables the Eclipse splash screen                                                                            |
 | -consoleLog                                               | Redirects any log output sent to Java's System.out (typically back to the command shell if any)               |
-| -data &lt;workspace path&gt;                                    | Set the Eclipse workspace to use                                                                              |
+| -data &lt;workspace path&gt;                              | Set the Eclipse workspace to use                                                                              |
 | -vmargs -Dsdtcore.headless=true                           | Sets a VM argument to run the Scala plugin in a headless mode.  Without this argument the toolbox will crash. |
 
 ### Headless Toolbox Arguments Explained
 
-| **Argument**                                    |                            **Explaination**                            |
+| **Argument**                                    |                            **Explanation**                             |
 |-------------------------------------------------|:----------------------------------------------------------------------:|
-| -import &lt;project path&gt;/{MyProject} | Imports a Eclipse project into the workspace         |
-| -output &lt;output file path&gt;                      | Sets the output file path                                              |
+| -import &lt;project path&gt;/{MyProject}        | Imports a Eclipse project into the workspace                           |
+| -output &lt;output file path&gt;                | Sets the output file path                                              |
 | -close-imported-projects-after-analysis         | Closes the imported project after the analysis is complete             |
 | -remove-imported-projects-after-analysis        | Closes and removes the imported project after the analysis is complete |
 
@@ -65,11 +65,11 @@ For additional Eclipse runtime arguments see [help.eclipse.org](http://help.ecli
 
 # Extending the Toolbox
 
-## Adding an analysis script
-To add an analysis script extend `toolbox.analysis.Script` and implement the `evaluateEnvelope` method.  Alternatively create your own Java classes for analysis and invoke them directly from the Headless entry point or on the Atlas Shell.
+## Adding an analyzer
+To add an analyzer extend `com.ensoftcorp.open.toolbox.commons.analysis.Analyzer` and implement the `evaluateEnvelope` method.  Alternatively create your own Java classes for analysis and invoke them directly from the Headless entry point or on the Atlas Shell.
 
 ## Adding a Smart View
-To add a custom Atlas Smart View implement the `AtlasSmartViewScript` interface and enable the Class in the `selectionScripts.atlas` file.  The custom Smart View can be accessed by right clicking on the `toolbox.shell` project, and selecting `Atlas`->`Open Atlas Smart View`.  Drag the Smart View window to your preferred location in the Eclipse IDE.  In the Smart View window click on the down arror and navigate to `Script` and then select the Smart View you'd like to display.
+To add a custom Atlas Smart View implement the `AtlasSmartViewScript` interface and enable the Class in the `selectionScripts.atlas` file.  The custom Smart View can be accessed by right clicking on the `toolbox.shell` project, and selecting `Atlas`->`Open Atlas Smart View`.  Drag the Smart View window to your preferred location in the Eclipse IDE.  In the Smart View window click on the down arrow and navigate to `Script` and then select the Smart View you'd like to display.
 
 An example custom Smart View can be seen in `toolbox.shell.smartviews.SuperTypeHierarchy`.
 
