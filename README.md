@@ -56,6 +56,8 @@ To run the analysis toolbox project in a headless mode invoke Eclipse from the c
 | -data &lt;workspace path&gt;                              | Set the Eclipse workspace to use                                                                              |
 | -vmargs -Dsdtcore.headless=true                           | Sets a VM argument to run the Scala plugin in a headless mode.  Without this argument the toolbox will crash. |
 
+For additional Eclipse runtime arguments see [help.eclipse.org](http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Freference%2Fmisc%2Fruntime-options.html).
+
 ### Headless Toolbox Arguments Explained
 
 | **Argument**                                    |                            **Explanation**                             |
@@ -64,8 +66,6 @@ To run the analysis toolbox project in a headless mode invoke Eclipse from the c
 | -output &lt;output file path&gt;                | Sets the output file path                                              |
 | -close-imported-projects-after-analysis         | Closes the imported project after the analysis is complete             |
 | -remove-imported-projects-after-analysis        | Closes and removes the imported project after the analysis is complete |
-
-For additional Eclipse runtime arguments see [help.eclipse.org](http://help.eclipse.org/juno/index.jsp?topic=%2Forg.eclipse.platform.doc.isv%2Freference%2Fmisc%2Fruntime-options.html).
 
 # Extending the Toolbox
 
