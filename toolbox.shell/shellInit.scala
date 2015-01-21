@@ -24,7 +24,4 @@ import com.ensoftcorp.atlas.core.db.graph.Graph
 import java.awt.Color
 
 // toolbox analysis scripts
-import toolbox.analysis._
-import toolbox.analysis.scripts._
-import toolbox.library.util._
-import toolbox.library.util.ScriptUtilities._
+import toolbox.analysis.analyzers._
