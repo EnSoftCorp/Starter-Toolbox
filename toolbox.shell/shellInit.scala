@@ -23,5 +23,13 @@ import com.ensoftcorp.atlas.core.db.graph.Graph
 // color for graph highlighting
 import java.awt.Color
 
+// toolbox commons
+import com.ensoftcorp.open.toolbox.commons._
+import com.ensoftcorp.open.toolbox.commons.SetDefinitions._
+import com.ensoftcorp.open.toolbox.commons.utils._
+import com.ensoftcorp.open.toolbox.commons.analysis._
+import com.ensoftcorp.open.toolbox.commons.analysis.utils._
+import com.ensoftcorp.open.toolbox.commons.analysis.utils.StandardQueries._
+
 // toolbox analysis scripts
 import toolbox.analysis.analyzers._
