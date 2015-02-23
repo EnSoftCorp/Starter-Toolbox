@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Basic Shell
+Bundle-Name: Atlas Shell
 Bundle-SymbolicName: toolbox.shell
-Bundle-Version: 2.0.4.qualifier
+Bundle-Version: 2.0.6.qualifier
 Bundle-Vendor: EnSoft Corp.
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: 
@@ -12,6 +12,6 @@ Require-Bundle:
  org.scala-ide.sdt.aspects,
  org.scala-ide.sdt.core,
  org.scala-refactoring.library,
- com.ensoftcorp.atlas.scalaide;bundle-version="2.0.5",
- com.ensoftcorp.atlas.ui.shell;bundle-version="2.0.5",
- toolbox.analysis;bundle-version="2.0.5"
+ com.ensoftcorp.atlas.scalaide;bundle-version="2.0.6",
+ com.ensoftcorp.atlas.ui.shell;bundle-version="2.0.6",
+ toolbox.analysis;bundle-version="2.0.6"
