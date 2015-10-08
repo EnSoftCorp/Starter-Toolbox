@@ -24,6 +24,7 @@ tmp/
 
 #Local configuration file
 local.properties
+.cache-main
 
 #Backup, swap, MacOS dir file, etc.
 *~
