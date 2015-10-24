@@ -60,9 +60,10 @@ For additional Eclipse runtime arguments see [help.eclipse.org](http://help.ecli
 
 ### Headless Toolbox Arguments Explained
 
-| **Argument**                                    |                            **Explanation**                             |
-|-------------------------------------------------|------------------------------------------------------------------------|
-| -import &lt;project path&gt;/{MyProject}        | Imports a Eclipse project into the workspace                           |
+| **Argument**                                          |                            **Explanation**                             |
+|-------------------------------------------------------|------------------------------------------------------------------------|
+| -import &lt;project path&gt;/{MyProject or MyApp.apk} | Imports a Eclipse project or Android binary into the workspace    |
+| -sdk-bundle-path &lt;Android SDK Bundle&gt;           | Manually specify the Android SDK Bundle path, if not specified the toolbox will search Eclipse preferences for this information. |
 | -output &lt;output file path&gt;                | Sets the output file path                                              |
 | -close-imported-projects-after-analysis         | Closes the imported project after the analysis is complete             |
 | -remove-imported-projects-after-analysis        | Closes and removes the imported project after the analysis is complete |
