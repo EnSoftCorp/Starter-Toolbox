@@ -9,8 +9,11 @@ Require-Bundle:
  org.eclipse.ui;visibility:=reexport,
  org.eclipse.core.runtime;visibility:=reexport,
  org.eclipse.core.resources;visibility:=reexport,
+ org.eclipse.jdt.core;visibility:=reexport,
  org.apache.commons.codec;bundle-version="1.4.0";visibility:=reexport,
- com.ensoftcorp.open.toolbox.commons;bundle-version="2.5.2";visibility:=reexport
+ com.ensoftcorp.open.toolbox.commons;bundle-version="2.5.2";visibility:=reexport,
+ com.ensoftcorp.abp;bundle-version="2.5.6";visibility:=reexport,
+ com.ensoftcorp.abp.common;bundle-version="2.5.6";visibility:=reexport
 Export-Package: toolbox.analysis.analyzers
 Bundle-Activator: toolbox.headless.Activator
 Bundle-ActivationPolicy: lazy

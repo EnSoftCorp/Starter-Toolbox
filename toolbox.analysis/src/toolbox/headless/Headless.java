@@ -27,6 +27,8 @@ import org.w3c.dom.Element;
 import toolbox.headless.analyzers.EnabledAnalyzers;
 import toolbox.headless.analyzers.serializers.Serializer;
 
+import com.ensoftcorp.abp.common.util.ProjectUtil;
+import com.ensoftcorp.abp.core.conversion.ApkToJimple;
 import com.ensoftcorp.atlas.core.log.Log;
 import com.ensoftcorp.open.toolbox.commons.analysis.Analyzer;
 import com.ensoftcorp.open.toolbox.commons.utils.IndexingUtils;
@@ -76,11 +78,18 @@ public class Headless implements IApplication {
 		File outputFile = null;
 		String[] args = (String[]) context.getArguments().get(IApplicationContext.APPLICATION_ARGS);
 		List<File> projects = new LinkedList<File>();
+		File sdkBundlePath = null;
+		
 		for (int i = 0; i < args.length; ++i) {
 			if("-import".equals(args[i]) && i + 1 < args.length) {
 				projects.add(new File(args[++i]));
 			} else if("-build".equals(args[i])) {
 				build = true;
+			} else if ("-sdk-bundle-path".equals(args[i])){
+				sdkBundlePath = new File(args[++i]);
+				if(!sdkBundlePath.exists()){
+					throw new IllegalArgumentException("Invalid Android SDK Bundle Path");
+				}
 			} else if("-output".equals(args[i])){
 				outputFile = new File(args[++i]);
 			} else if("-close-imported-projects-after-analysis".equals(args[i])){
@@ -94,16 +103,28 @@ public class Headless implements IApplication {
 		List<IProject> eclipseProjects = new LinkedList<IProject>();
 		if (projects.size() != 0) {
 			for (File project : projects) {
-				// import eclipse project to workspace
-				IProject eclipseProject = importEclipseProject(project);
-				if(eclipseProject != null){
-					eclipseProjects.add(eclipseProject);
+				if (project.getAbsolutePath().endsWith(".apk")) {
+					// decompile and import APK
+					String projectName = project.getName();
+					Log.info("Importing APK: " + projectName);
+					projectName = projectName.substring(0, projectName.length() - ".apk".length());
+					IProject eclipseProject = importAPK(project, sdkBundlePath, projectName);
+					if (eclipseProject != null) {
+						eclipseProjects.add(eclipseProject);
+					}
+				} else {
+					// import eclipse project to workspace
+					Log.info("Importing Project: " + project.getName());
+					IProject eclipseProject = importEclipseProject(project);
+					if (eclipseProject != null) {
+						eclipseProjects.add(eclipseProject);
+					}
 				}
 			}
 
 			// build all projects after importing
 			if (build) {
-				Log.info("Re-building workspace");
+				Log.info("Building workspace");
 				ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.CLEAN_BUILD, new NullProgressMonitor());
 				ResourcesPlugin.getWorkspace().build(IncrementalProjectBuilder.FULL_BUILD, new NullProgressMonitor());
 			}
@@ -187,6 +208,24 @@ public class Headless implements IApplication {
 				eclipseProject.open(null);
 			} catch (Exception e){
 				Log.error("Failed to import: " + eclipseProjectPath.getName(), e);
+			}
+		}
+		return eclipseProject;
+	}
+	
+	public static IProject importAPK(File apk, File androidSDKPath, String projectName) {
+		IProject eclipseProject = null;
+		if (apk.exists()) {
+			try {
+				Log.info("Importing " + apk.getName() + "...");
+				// decompile APK directly into workspace
+				String outputDir = ResourcesPlugin.getWorkspace().getRoot().getLocation().toOSString();
+				ApkToJimple.createAndroidBinaryProject(projectName, new Path(outputDir), apk, androidSDKPath, new NullProgressMonitor());
+				eclipseProject = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+			} catch (Exception e) {
+				IProject project = ResourcesPlugin.getWorkspace().getRoot().getProject(projectName);
+				ProjectUtil.deleteProject(project);
+				Log.error("Failed to import: " + apk, e);
 			}
 		}
 		return eclipseProject;

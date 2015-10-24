@@ -12,6 +12,7 @@ import org.w3c.dom.Element;
 import toolbox.analysis.analyzers.DiscoverMainMethods;
 import toolbox.headless.Headless;
 
+import com.ensoftcorp.atlas.core.log.Log;
 import com.ensoftcorp.atlas.core.query.Q;
 import com.ensoftcorp.atlas.java.core.script.CommonQueries;
 import com.ensoftcorp.open.toolbox.commons.analysis.Analyzer;
@@ -34,11 +35,17 @@ public class Serializer {
 	}
 	
 	public static Serializer getAnalyzerSerializer(Class<? extends Analyzer> script){
-		return scriptSerializers.get(script);
+		if(scriptSerializers.containsKey(script)){
+			return scriptSerializers.get(script);
+		} else {
+			Log.info("No custom analyzer for " + script.getName() + ", using default serializer.");
+			return new Serializer();
+		}
 	}
 	
 	public static final String NODES = "nodes";
 	public static final String EDGES = "edges";
+	public static final String NAME = "name";
 	
 	protected Q envelope;
 	
@@ -50,6 +57,9 @@ public class Serializer {
 	 */
 	public void serialize(Document doc, Element analyzerElement, Analyzer analyzer){
 		try {
+			// set analyzer name
+			analyzerElement.setAttribute(NAME, analyzer.getName());
+			
 			// record analysis time
 			long startAnalysis = System.currentTimeMillis();
 			this.envelope = analyzer.getEnvelope();
