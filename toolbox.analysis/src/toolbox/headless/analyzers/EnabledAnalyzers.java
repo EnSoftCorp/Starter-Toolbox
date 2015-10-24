@@ -14,11 +14,6 @@ public class EnabledAnalyzers {
 
 	public static ArrayList<Analyzer> getEnabledAnalyzers(){
 		ArrayList<Analyzer> enabledScripts = new ArrayList<Analyzer>();
-		
-		// enable these scripts after they have been implemented
-//		enabledScripts.add(new DiscoverAbortBroadcastReceivers());
-//		enabledScripts.add(new DiscoverReadPhoneStateUsage());
-		
 		enabledScripts.add(new DiscoverClassLoaderUsage());
 		enabledScripts.add(new DiscoverMainMethods());
 		enabledScripts.add(new DiscoverNativeCodeUsage());
