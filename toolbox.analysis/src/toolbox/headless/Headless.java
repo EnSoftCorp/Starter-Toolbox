@@ -1,6 +1,7 @@
 package toolbox.headless;
 
 import java.io.File;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,6 +30,10 @@ import toolbox.headless.analyzers.serializers.Serializer;
 
 import com.ensoftcorp.abp.common.util.ProjectUtil;
 import com.ensoftcorp.abp.core.conversion.ApkToJimple;
+import com.ensoftcorp.atlas.core.index.ProjectPropertiesUtil;
+import com.ensoftcorp.atlas.core.indexing.IMappingSettings;
+import com.ensoftcorp.atlas.core.indexing.IndexingUtil;
+import com.ensoftcorp.atlas.core.licensing.AtlasLicenseException;
 import com.ensoftcorp.atlas.core.log.Log;
 import com.ensoftcorp.open.toolbox.commons.analysis.Analyzer;
 import com.ensoftcorp.open.toolbox.commons.utils.IndexingUtils;
@@ -130,8 +135,12 @@ public class Headless implements IApplication {
 			}
 		}
 		
+		// enable mapping for the project (so it can be indexed)
+		for(IProject project : eclipseProjects){
+			mapProject(project);
+		}
+		
 		// record open projects in workspace
-		// TODO: Check if flagged for indexing as well
 		Element workspaceElement = doc.createElement(WORKSPACE);
 		rootElement.appendChild(workspaceElement);
 		for(IProject project : ResourcesPlugin.getWorkspace().getRoot().getProjects()){
@@ -211,6 +220,21 @@ public class Headless implements IApplication {
 			}
 		}
 		return eclipseProject;
+	}
+	
+	public static void mapProject(IProject project) throws AtlasLicenseException {
+		// configure project for indexing
+		
+		// Disable indexing for all projects
+		List<IProject> allEnabledProjects = ProjectPropertiesUtil.getAllEnabledProjects();
+		ProjectPropertiesUtil.setIndexingEnabledAndDisabled(Collections.<IProject>emptySet(), allEnabledProjects);
+		
+		// Enable indexing for this project
+		List<IProject> ourProjects = Collections.singletonList(project);
+		ProjectPropertiesUtil.setIndexingEnabledAndDisabled(ourProjects, Collections.<IProject>emptySet());
+	
+		// TODO: set jar indexing mode to: used only (same as default)
+		IndexingUtil.indexWithSettings(/*saveIndex*/true, /*indexingSettings*/Collections.<IMappingSettings>emptySet(), ourProjects.toArray(new IProject[1]));
 	}
 	
 	public static IProject importAPK(File apk, File androidSDKPath, String projectName) {
