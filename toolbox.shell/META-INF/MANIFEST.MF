@@ -1,8 +1,8 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Atlas Shell
+Bundle-Name: Starter Toolbox Shell
 Bundle-SymbolicName: toolbox.shell
-Bundle-Version: 2.5.2.qualifier
+Bundle-Version: 2.7.0.qualifier
 Bundle-Vendor: EnSoft Corp.
 Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Require-Bundle: 

@@ -34,6 +34,7 @@ import com.ensoftcorp.atlas.core.script.CommonQueries.TraversalDirection._
 import com.ensoftcorp.atlas.core.script.UniverseManipulator
 import com.ensoftcorp.atlas.ui.shell.lib.Common._
 import com.ensoftcorp.atlas.core.highlight._
+import com.ensoftcorp.atlas.core.markup._
 
 // color for graph highlighting
 import java.awt.Color
