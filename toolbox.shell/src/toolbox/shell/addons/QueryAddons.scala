@@ -1,20 +1,21 @@
 package toolbox.shell.addons
 
-import scala.collection.JavaConversions._
 import com.ensoftcorp.atlas.core.query.Q
-import com.ensoftcorp.atlas.core.highlight.Highlighter
-import com.ensoftcorp.atlas.core.db.set.DifferenceSet
-import com.ensoftcorp.atlas.core.script.Common
+import com.ensoftcorp.atlas.core.db.set.AtlasHashSet
 import com.ensoftcorp.atlas.core.db.graph.operation.InducedGraph
 import com.ensoftcorp.atlas.core.db.graph.GraphElement
-import com.ensoftcorp.atlas.core.db.set.AtlasHashSet
+import com.ensoftcorp.atlas.core.db.graph.Graph
+import scala.collection.JavaConversions._
+import com.ensoftcorp.atlas.core.db.graph.GraphElement
 import com.ensoftcorp.atlas.core.db.graph.EdgeGraph
-import com.ensoftcorp.atlas.core.script.CommonQueries
+import com.ensoftcorp.atlas.core.highlight.Highlighter
+import com.ensoftcorp.atlas.core.script.Common._
+import com.ensoftcorp.atlas.java.core.script.Common.stepFrom
+import com.ensoftcorp.atlas.java.core.script.Common.stepTo
+import com.ensoftcorp.atlas.java.core.script.Common.getQualifiedName
 
+import com.ensoftcorp.atlas.core.db.set.DifferenceSet
 
-/**
- * Adds some methods to Q that are available on the interpreter (only)
- */
 class QueryAddons(query: Q) {
 
   /**
@@ -33,7 +34,7 @@ class QueryAddons(query: Q) {
     var h = new Highlighter
     h.highlight(query difference other, java.awt.Color.RED)
     var edgeDiff = new DifferenceSet(query.eval.edges, other.eval.edges)
-    h.highlightEdges(Common.toQ(new InducedGraph(query.eval.nodes, edgeDiff)), java.awt.Color.RED)
+    h.highlightEdges(toQ(new InducedGraph(query.eval.nodes, edgeDiff)), java.awt.Color.RED)
     show(h)
   }
 
@@ -43,7 +44,7 @@ class QueryAddons(query: Q) {
    */
   def differenceEdges(second: Q): Q = {
     var edgeDiff = new DifferenceSet(query.eval.edges, second.eval.edges)
-    Common.toQ(new InducedGraph(query.eval.nodes, edgeDiff))
+    toQ(new InducedGraph(query.eval.nodes, edgeDiff))
   }
 
   /**
@@ -51,7 +52,7 @@ class QueryAddons(query: Q) {
    */
   def betweenShortestPath(from: Q, to: Q): Q = {
     // Return immediately if no path
-    if (query.between(from, to).eval.nodes.isEmpty) return Common.nothing()
+    if (query.between(from, to).eval.nodes.isEmpty) return nothing
 
     var context = from
 
@@ -72,7 +73,7 @@ class QueryAddons(query: Q) {
       if (!goaltest.eval.nodes.isEmpty) return goaltest
     }
 
-    return Common.nothing()
+    return nothing
   }
 
   /**
@@ -108,7 +109,7 @@ class QueryAddons(query: Q) {
    * discarded except those which are edge endpoints.
    */
   def selectOnlyEdges(key: java.lang.String, values: Object*): Q = {
-    Common.toQ(new EdgeGraph(query.selectEdge(key, values: _*).eval.edges))
+    toQ(new EdgeGraph(query.selectEdge(key, values: _*).eval.edges))
   }
 
   /**
@@ -116,7 +117,7 @@ class QueryAddons(query: Q) {
    * discarded except those which are edge endpoints.
    */
   def selectOnlyEdges(key: java.lang.String): Q = {
-    Common.toQ(new EdgeGraph(query.selectEdge(key).eval.edges))
+    toQ(new EdgeGraph(query.selectEdge(key).eval.edges))
   }
 
   /**
@@ -161,7 +162,7 @@ class QueryAddons(query: Q) {
     var stepped = in
 
     for (i <- 0 until steps) {
-      stepped = query.predecessors(in);
+      stepped = stepTo(in, query)
     }
 
     stepped
@@ -174,7 +175,7 @@ class QueryAddons(query: Q) {
     var stepped = in
 
     for (i <- 0 until steps) {
-      stepped = query.successors(in);
+      stepped = stepFrom(in, query)
     }
 
     stepped
@@ -195,7 +196,7 @@ class QueryAddons(query: Q) {
       }
     }
 
-    Common.toQ(new InducedGraph(nodes, graph.edges()))
+    toQ(new InducedGraph(nodes, graph.edges()))
   }
 
   /**
@@ -219,7 +220,7 @@ class QueryAddons(query: Q) {
    * Reverses order of arguments to facilitate chaining.
    */
   def fwd(alongEdgeTypes: String*): Q = {
-    Common.edges(alongEdgeTypes: _*).forward(query)
+    edges(alongEdgeTypes: _*).forward(query)
   }
 
   /**
@@ -246,7 +247,8 @@ class QueryAddons(query: Q) {
    * show expression, returning expression (to facilitate chaining)
    */
   def show(highlighter: Highlighter = new Highlighter, extend: Boolean = true, title: String = null): Q = {
-    com.ensoftcorp.atlas.ui.shell.lib.Common.show(q = query, highlighter = highlighter, extend = extend, title = title);
+    import com.ensoftcorp.atlas.ui.shell.lib.ShellCommon
+    ShellCommon.show(query, title, highlighter, extend);
     printSize
     query
   }
@@ -271,7 +273,7 @@ class QueryAddons(query: Q) {
     val itr = g.nodes.iterator
     while (itr.hasNext) {
       val ge = itr.next
-      list.add(com.ensoftcorp.atlas.java.core.script.Common.getQualifiedName(ge))
+      list.add(getQualifiedName(ge))
     }
 
     // lexical sort, which is better than nothing, but unfortunately sorts by return type instead of package
@@ -287,26 +289,27 @@ class QueryAddons(query: Q) {
 }
 
 object QueryAddons {
-  import scala.language.implicitConversions
-  
-  
+
+  import com.ensoftcorp.atlas.core.db.graph.GraphElement
+
   /**
    * Implicitly add some functionality to queries
    */
   implicit def query2addonquery(query: Q) = new QueryAddons(query)
+
 }
 
 class GraphElementAddons(element: GraphElement) {
 
+  import com.ensoftcorp.atlas.core.script.Common
+
   def toQ() = {
-    Common.toQ(Common.toGraph(element))
+    Common.toQ(toGraph(element))
   }
 }
 
 object GraphElementAddons {
 
-  import scala.language.implicitConversions
-  
   /**
    * Implicitly convert graph elements back to queries
    */

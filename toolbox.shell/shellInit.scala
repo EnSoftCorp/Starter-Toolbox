@@ -32,20 +32,19 @@ import com.ensoftcorp.atlas.core.script.CommonQueries._
 import com.ensoftcorp.atlas.core.script.CommonQueries.TraversalDirection
 import com.ensoftcorp.atlas.core.script.CommonQueries.TraversalDirection._ 
 import com.ensoftcorp.atlas.core.script.UniverseManipulator
-import com.ensoftcorp.atlas.ui.shell.lib.Common._
+import com.ensoftcorp.atlas.ui.shell.lib.ShellCommon._
 import com.ensoftcorp.atlas.core.highlight._
-import com.ensoftcorp.atlas.core.markup._
 
 // color for graph highlighting
 import java.awt.Color
 
 // toolbox commons
-import com.ensoftcorp.open.toolbox.commons._
-import com.ensoftcorp.open.toolbox.commons.SetDefinitions._
-import com.ensoftcorp.open.toolbox.commons.utils._
-import com.ensoftcorp.open.toolbox.commons.analysis._
-import com.ensoftcorp.open.toolbox.commons.analysis.utils._
-import com.ensoftcorp.open.toolbox.commons.analysis.utils.StandardQueries._
+import com.ensoftcorp.open.commons._
+import com.ensoftcorp.open.commons.SetDefinitions._
+import com.ensoftcorp.open.commons.utils._
+import com.ensoftcorp.open.commons.analysis._
+import com.ensoftcorp.open.commons.analysis.utils._
+import com.ensoftcorp.open.commons.analysis.utils.StandardQueries._
 
 // toolbox analysis scripts
 import toolbox.analysis.analyzers._

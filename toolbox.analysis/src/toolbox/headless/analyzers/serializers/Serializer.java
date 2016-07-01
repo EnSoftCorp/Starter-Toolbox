@@ -9,13 +9,13 @@ import org.apache.commons.codec.binary.Base64;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
-import toolbox.analysis.analyzers.DiscoverMainMethods;
-import toolbox.headless.Headless;
-
 import com.ensoftcorp.atlas.core.log.Log;
 import com.ensoftcorp.atlas.core.query.Q;
 import com.ensoftcorp.atlas.java.core.script.CommonQueries;
-import com.ensoftcorp.open.toolbox.commons.analysis.Analyzer;
+import com.ensoftcorp.open.commons.analysis.Analyzer;
+import com.ensoftcorp.open.commons.analysis.DiscoverMainMethods;
+
+import toolbox.headless.Headless;
 
 public class Serializer {
 

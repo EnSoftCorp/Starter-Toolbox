@@ -4,8 +4,8 @@ import com.ensoftcorp.atlas.core.query.Q;
 import com.ensoftcorp.atlas.core.script.Common;
 import com.ensoftcorp.atlas.core.script.CommonQueries;
 import com.ensoftcorp.atlas.core.xcsg.XCSG;
-import com.ensoftcorp.open.toolbox.commons.SetDefinitions;
-import com.ensoftcorp.open.toolbox.commons.analysis.Analyzer;
+import com.ensoftcorp.open.commons.analysis.Analyzer;
+import com.ensoftcorp.open.commons.analysis.SetDefinitions;
 
 public class DiscoverClassLoaderUsage extends Analyzer {
 

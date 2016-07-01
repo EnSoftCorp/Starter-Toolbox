@@ -4,8 +4,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 import com.ensoftcorp.atlas.core.db.graph.GraphElement;
-import com.ensoftcorp.open.toolbox.commons.FormattedSourceCorrespondence;
-import com.ensoftcorp.open.toolbox.commons.analysis.Analyzer;
+import com.ensoftcorp.open.commons.analysis.Analyzer;
+import com.ensoftcorp.open.commons.utils.FormattedSourceCorrespondence;
 
 public class DiscoverMainMethodsSerializer extends Serializer {
 
