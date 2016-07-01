@@ -9,7 +9,7 @@ The Starter-Toolbox is a simple starter framework for creating an analysis toolb
 
 ### 2) Install dependencies.  
 
-The Starter-Toolbox has a dependency on the [Toolbox-Commons](https://github.com/EnSoftCorp/toolbox-commons) library.  It can be installed by following instructions at [https://ensoftcorp.github.io/toolbox-commons/install.html](https://ensoftcorp.github.io/toolbox-commons/install.html).
+The Starter-Toolbox has a dependency on the [Toolbox-Commons](https://github.com/EnSoftCorp/toolbox-commons) library.  It can be installed by following instructions at [https://ensoftcorp.github.io/toolbox-commons/install](https://ensoftcorp.github.io/toolbox-commons/install).
 
 The Starter-Toolbox also has a dependency on the `org.apache.commons.codec` library.  Install the Apache commons library as a plugin from the [http://www.eclipse.org/orbit/](http://www.eclipse.org/orbit/) repos by navigating to `Help`->`Install New Software...` and entering "[http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository/](http://download.eclipse.org/tools/orbit/downloads/drops/R20140525021250/repository/)" in the `Work with:` field.  Expand the `All Orbit Bundles` category and select `Apache Commons Codec` (version 1.4.0) and then press `Next` and `Finish`.  You will need to restart Eclipse.
 
