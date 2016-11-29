@@ -28,7 +28,7 @@ import com.ensoftcorp.abp.common.util.ProjectUtil;
 import com.ensoftcorp.abp.core.conversion.ApkToJimple;
 import com.ensoftcorp.atlas.core.log.Log;
 import com.ensoftcorp.open.commons.analysis.Analyzer;
-import com.ensoftcorp.open.commons.utils.MappingUtils;
+import com.ensoftcorp.open.commons.utilities.MappingUtils;
 
 import toolbox.headless.analyzers.EnabledAnalyzers;
 import toolbox.headless.analyzers.serializers.Serializer;

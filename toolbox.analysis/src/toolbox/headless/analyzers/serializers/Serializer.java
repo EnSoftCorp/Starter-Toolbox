@@ -11,9 +11,10 @@ import org.w3c.dom.Element;
 
 import com.ensoftcorp.atlas.core.log.Log;
 import com.ensoftcorp.atlas.core.query.Q;
+import com.ensoftcorp.atlas.java.core.script.Common;
 import com.ensoftcorp.atlas.java.core.script.CommonQueries;
 import com.ensoftcorp.open.commons.analysis.Analyzer;
-import com.ensoftcorp.open.commons.analysis.DiscoverMainMethods;
+import com.ensoftcorp.open.java.commons.analyzers.DiscoverMainMethods;
 
 import toolbox.headless.Headless;
 
@@ -62,7 +63,7 @@ public class Serializer {
 			
 			// record analysis time
 			long startAnalysis = System.currentTimeMillis();
-			this.envelope = analyzer.getEnvelope();
+			this.envelope = analyzer.getAllResults(Common.universe());
 			long finishAnalysis = System.currentTimeMillis();
 			analyzerElement.setAttribute(Headless.TIME, "" + (finishAnalysis - startAnalysis));
 			

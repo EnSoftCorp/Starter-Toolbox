@@ -3,7 +3,7 @@ package toolbox.headless.analyzers;
 import java.util.ArrayList;
 
 import com.ensoftcorp.open.commons.analysis.Analyzer;
-import com.ensoftcorp.open.commons.analysis.DiscoverMainMethods;
+import com.ensoftcorp.open.java.commons.analyzers.DiscoverMainMethods;
 
 import toolbox.analysis.analyzers.DiscoverClassLoaderUsage;
 import toolbox.analysis.analyzers.DiscoverNativeCodeUsage;
