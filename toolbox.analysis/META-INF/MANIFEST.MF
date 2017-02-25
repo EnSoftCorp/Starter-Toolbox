@@ -2,7 +2,7 @@ Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Starter Toolbox
 Bundle-SymbolicName: toolbox.analysis;singleton:=true
-Bundle-Version: 3.0.12.qualifier
+Bundle-Version: 3.0.15.qualifier
 Bundle-Vendor: EnSoft Corp.
 Bundle-RequiredExecutionEnvironment: JavaSE-1.8
 Require-Bundle: 
@@ -11,11 +11,10 @@ Require-Bundle:
  org.eclipse.core.resources;visibility:=reexport,
  org.eclipse.jdt.core;visibility:=reexport,
  org.apache.commons.codec;visibility:=reexport,
- com.ensoftcorp.abp;bundle-version="3.0.12";visibility:=reexport,
+ com.ensoftcorp.abp;bundle-version="3.0.15";visibility:=reexport,
  com.ensoftcorp.abp.common;bundle-version="3.0.10";visibility:=reexport,
- com.ensoftcorp.open.commons;bundle-version="3.0.12";visibility:=reexport,
- com.ensoftcorp.open.java.commons;bundle-version="3.0.12";visibility:=reexport
-Export-Package: toolbox.analysis.analyzers
+ com.ensoftcorp.open.commons;bundle-version="3.0.15";visibility:=reexport,
+ com.ensoftcorp.open.java.commons;bundle-version="3.0.15";visibility:=reexport
 Bundle-Activator: toolbox.headless.Activator
 Bundle-ActivationPolicy: lazy
 Bundle-ClassPath: .

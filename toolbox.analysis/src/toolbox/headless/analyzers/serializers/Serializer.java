@@ -13,8 +13,8 @@ import com.ensoftcorp.atlas.core.log.Log;
 import com.ensoftcorp.atlas.core.query.Q;
 import com.ensoftcorp.atlas.java.core.script.Common;
 import com.ensoftcorp.atlas.java.core.script.CommonQueries;
-import com.ensoftcorp.open.commons.analysis.Analyzer;
-import com.ensoftcorp.open.java.commons.analyzers.DiscoverMainMethods;
+import com.ensoftcorp.open.commons.analyzers.Analyzer;
+import com.ensoftcorp.open.java.commons.analyzers.JavaProgramEntryPoints;
 
 import toolbox.headless.Headless;
 
@@ -23,7 +23,7 @@ public class Serializer {
 	private static Map<Class<? extends Analyzer>, Serializer> scriptSerializers = new HashMap<Class<? extends Analyzer>, Serializer>() {
 		private static final long serialVersionUID = 1L;
 		{
-			put(DiscoverMainMethods.class, new DiscoverMainMethodsSerializer());
+			put(JavaProgramEntryPoints.class, new JavaProgramEntryPointsSerializer());
 		}
 	};
 

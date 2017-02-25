@@ -41,12 +41,5 @@ import java.awt.Color
 // toolbox commons
 import com.ensoftcorp.open.commons.analysis._
 import com.ensoftcorp.open.commons.analysis.SetDefinitions._
-import com.ensoftcorp.open.commons.analysis.utils._
-import com.ensoftcorp.open.commons.analysis.utils.StandardQueries._
-import com.ensoftcorp.open.commons.utils._
-
-// toolbox analysis scripts
-import toolbox.analysis.analyzers._
-
-
-
+import com.ensoftcorp.open.commons.analysis.StandardQueries._
+import com.ensoftcorp.open.commons.utilities._
