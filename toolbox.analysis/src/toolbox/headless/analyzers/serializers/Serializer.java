@@ -63,7 +63,7 @@ public class Serializer {
 			
 			// record analysis time
 			long startAnalysis = System.currentTimeMillis();
-			this.envelope = analyzer.getAllResults(Common.universe());
+			this.envelope = analyzer.getAllResults(analyzer.getResults(Common.universe()));
 			long finishAnalysis = System.currentTimeMillis();
 			analyzerElement.setAttribute(Headless.TIME, "" + (finishAnalysis - startAnalysis));
 			
